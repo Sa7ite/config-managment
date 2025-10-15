@@ -1,0 +1,14 @@
+C:\Users\thunder\config-management\ConfigManagement\bin\Debug\net8.0-windows\ConfigManagement.exe
+C:\Users\thunder\config-management\ConfigManagement\bin\Debug\net8.0-windows\ConfigManagement.deps.json
+C:\Users\thunder\config-management\ConfigManagement\bin\Debug\net8.0-windows\ConfigManagement.runtimeconfig.json
+C:\Users\thunder\config-management\ConfigManagement\bin\Debug\net8.0-windows\ConfigManagement.dll
+C:\Users\thunder\config-management\ConfigManagement\bin\Debug\net8.0-windows\ConfigManagement.pdb
+C:\Users\thunder\config-management\ConfigManagement\obj\Debug\net8.0-windows\ConfigManagement.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\thunder\config-management\ConfigManagement\obj\Debug\net8.0-windows\ConfigManagement.AssemblyInfoInputs.cache
+C:\Users\thunder\config-management\ConfigManagement\obj\Debug\net8.0-windows\ConfigManagement.AssemblyInfo.cs
+C:\Users\thunder\config-management\ConfigManagement\obj\Debug\net8.0-windows\ConfigManagement.csproj.CoreCompileInputs.cache
+C:\Users\thunder\config-management\ConfigManagement\obj\Debug\net8.0-windows\ConfigManagement.dll
+C:\Users\thunder\config-management\ConfigManagement\obj\Debug\net8.0-windows\refint\ConfigManagement.dll
+C:\Users\thunder\config-management\ConfigManagement\obj\Debug\net8.0-windows\ConfigManagement.pdb
+C:\Users\thunder\config-management\ConfigManagement\obj\Debug\net8.0-windows\ConfigManagement.genruntimeconfig.cache
+C:\Users\thunder\config-management\ConfigManagement\obj\Debug\net8.0-windows\ref\ConfigManagement.dll
