@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
     <TargetFramework>net8.0-windows</TargetFramework>
@@ -10,5 +9,4 @@
     <AssemblyTitle>Config Management</AssemblyTitle>
     <AssemblyDescription>Эмулятор командной строки UNIX с VFS</AssemblyDescription>
   </PropertyGroup>
-
 </Project>

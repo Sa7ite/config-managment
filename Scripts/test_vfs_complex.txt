@@ -1,0 +1,16 @@
+# Тестирование комплексной VFS
+echo "=== Тест комплексной VFS ==="
+ls /
+ls /bin
+ls /home/user
+cd /home/user/config
+ls
+cat app.json
+cd ../data/backup
+ls
+cat log1.txt
+cd /home/user/scripts
+ls
+cat start.sh
+cd /
+exit

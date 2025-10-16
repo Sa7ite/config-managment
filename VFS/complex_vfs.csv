@@ -1,0 +1,13 @@
+Path,Name,Type,Content,Size
+/,root,Directory,,
+/bin,bin,Directory,,
+/bin/ls,ls,File,"IyEvYmluL2Jhc2gKZWNobyAiRmlsZSBsaXN0Ig==",25
+/home,home,Directory,,
+/home/user,user,Directory,,
+/home/user/config,config,Directory,,
+/home/user/config/app.json,app.json,File,"ewogICJhcHAiOiAiVkZTIiwKICAidmVyc2lvbiI6ICIxLjAiCn0=",40
+/home/user/data,data,Directory,,
+/home/user/data/backup,backup,Directory,,
+/home/user/data/backup/log1.txt,log1.txt,File,"TG9nIGVudHJ5IDE=",14
+/home/user/scripts,scripts,Directory,,
+/home/user/scripts/start.sh,start.sh,File,"IyEvYmluL2Jhc2gKZWNobyAiU3RhcnRpbmcgYXBwIg==",32

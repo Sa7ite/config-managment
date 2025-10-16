@@ -1,0 +1,7 @@
+# Тестирование обработки ошибок VFS
+echo "=== Тест обработки ошибок ==="
+ls /nonexistent
+cd /invalid/path
+cat unknown_file.txt
+cat /home/user  # попытка cat на директории
+exit

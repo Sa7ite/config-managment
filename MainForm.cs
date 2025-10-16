@@ -9,7 +9,7 @@ namespace ConfigManagement
     {
         private TextBox inputTextBox;
         private RichTextBox outputRichTextBox;
-        private string currentDirectory = "/home/user";
+        private VirtualFileSystem vfs;
         private const string VFS_NAME = "ConfigVFS";
         private bool isExecutingScript = false;
         private string[] currentScriptLines;
@@ -19,6 +19,10 @@ namespace ConfigManagement
         {
             InitializeComponent();
             this.Text = $"{VFS_NAME} - Configuration Management System";
+            
+            // Initialize VFS
+            vfs = Program.VFS ?? new VirtualFileSystem();
+            
             ShowWelcomeMessage();
             
             // Запуск стартового скрипта если указан
@@ -121,7 +125,8 @@ namespace ConfigManagement
                 
                 // Прерываем выполнение при ошибке
                 if (outputRichTextBox.Text.Contains("ОШИБКА") || 
-                    outputRichTextBox.Text.Contains("не найдена"))
+                    outputRichTextBox.Text.Contains("не найдена") ||
+                    outputRichTextBox.Text.Contains("не найден"))
                 {
                     AppendOutput($"=== ВЫПОЛНЕНИЕ СКРИПТА ПРЕРВАНО НА СТРОКЕ {currentScriptLine} ===", Color.Red);
                     isExecutingScript = false;
@@ -153,7 +158,7 @@ namespace ConfigManagement
 
             // Вывод введенной команды с пользовательским приглашением
             string prompt = !string.IsNullOrEmpty(Program.CustomPrompt) ? 
-                Program.CustomPrompt : $"{currentDirectory}$ ";
+                Program.CustomPrompt : $"{vfs.GetCurrentPath()}$ ";
             AppendOutput($"{prompt}{input}", Color.Yellow);
 
             try
@@ -174,6 +179,9 @@ namespace ConfigManagement
                         break;
                     case "cd":
                         ExecuteCd(args);
+                        break;
+                    case "cat":
+                        ExecuteCat(args);
                         break;
                     case "exit":
                         ExecuteExit(args);
@@ -220,46 +228,51 @@ namespace ConfigManagement
 
         private void ExecuteLs(string[] args)
         {
-            // Заглушка для команды ls
             AppendOutput($"Команда: ls", Color.Cyan);
             AppendOutput($"Аргументы: {(args.Length > 0 ? string.Join(", ", args) : "нет")}", Color.Cyan);
-            AppendOutput("config.json  settings.yaml  scripts/  logs/", Color.White);
-            AppendOutput("Всего: 4 элемента", Color.Gray);
+            
+            var path = args.Length > 0 ? args[0] : "";
+            var contents = vfs.GetDirectoryContents(path);
+            
+            if (contents.Count == 0)
+            {
+                AppendOutput("Директория пуста", Color.White);
+            }
+            else
+            {
+                foreach (var item in contents)
+                {
+                    var display = item.IsDirectory ? $"{item.Name}/" : item.Name;
+                    AppendOutput(display, Color.White);
+                }
+            }
+            
+            AppendOutput($"Всего: {contents.Count} элементов", Color.Gray);
         }
 
         private void ExecuteCd(string[] args)
         {
-            // Заглушка для команды cd
             AppendOutput($"Команда: cd", Color.Cyan);
             AppendOutput($"Аргументы: {(args.Length > 0 ? string.Join(", ", args) : "нет")}", Color.Cyan);
             
             if (args.Length == 0)
             {
-                currentDirectory = "/home/user";
+                vfs.ChangeDirectory("/home/user");
                 AppendOutput("Переход в домашнюю директорию", Color.Green);
             }
             else if (args.Length == 1)
             {
-                if (args[0] == "..")
+                if (vfs.ChangeDirectory(args[0]))
                 {
-                    if (currentDirectory != "/")
-                    {
-                        int lastSlash = currentDirectory.LastIndexOf('/');
-                        currentDirectory = currentDirectory.Substring(0, lastSlash);
-                        if (string.IsNullOrEmpty(currentDirectory)) currentDirectory = "/";
-                    }
-                    AppendOutput($"Переход в родительскую директорию", Color.Green);
-                }
-                else if (args[0] == "/")
-                {
-                    currentDirectory = "/";
-                    AppendOutput("Переход в корневую директорию", Color.Green);
+                    AppendOutput($"Переход в: {args[0]}", Color.Green);
                 }
                 else
                 {
-                    string newDir = args[0].StartsWith("/") ? args[0] : $"{currentDirectory}/{args[0]}";
-                    AppendOutput($"Попытка перехода в: {newDir}", Color.Green);
-                    currentDirectory = newDir;
+                    AppendOutput($"cd: {args[0]}: Директория не найдена", Color.Red);
+                    if (isExecutingScript)
+                    {
+                        throw new Exception($"Директория не найдена: {args[0]}");
+                    }
                 }
             }
             else
@@ -267,7 +280,30 @@ namespace ConfigManagement
                 AppendOutput("cd: слишком много аргументов. Использование: cd [директория]", Color.Red);
             }
             
-            AppendOutput($"Текущая директория: {currentDirectory}", Color.LightBlue);
+            AppendOutput($"Текущая директория: {vfs.GetCurrentPath()}", Color.LightBlue);
+        }
+
+        private void ExecuteCat(string[] args)
+        {
+            AppendOutput($"Команда: cat", Color.Cyan);
+            AppendOutput($"Аргументы: {(args.Length > 0 ? string.Join(", ", args) : "нет")}", Color.Cyan);
+            
+            if (args.Length == 0)
+            {
+                AppendOutput("cat: не указан файл", Color.Red);
+                return;
+            }
+            
+            var content = vfs.ReadFileContent(args[0]);
+            if (!string.IsNullOrEmpty(content))
+            {
+                AppendOutput($"Содержимое файла {args[0]}:", Color.White);
+                AppendOutput(content, Color.White);
+            }
+            else
+            {
+                AppendOutput($"cat: {args[0]}: Файл не найден или пуст", Color.Red);
+            }
         }
 
         private void ExecuteExit(string[] args)
@@ -302,7 +338,7 @@ namespace ConfigManagement
         private void ShowWelcomeMessage()
         {
             AppendOutput($"Добро пожаловать в {VFS_NAME} - система управления конфигурациями!", Color.LightBlue);
-            AppendOutput("Версия: 1.0 (Этап 2: Конфигурация)", Color.LightBlue);
+            AppendOutput("Версия: 1.0 (Этап 3: VFS)", Color.LightBlue);
             
             if (!string.IsNullOrEmpty(Program.ScriptPath))
             {
@@ -314,7 +350,7 @@ namespace ConfigManagement
             }
             
             AppendOutput("", Color.White);
-            AppendOutput("Доступные команды: ls, cd, exit", Color.White);
+            AppendOutput("Доступные команды: ls, cd, cat, exit", Color.White);
             AppendOutput("", Color.White);
         }
     }

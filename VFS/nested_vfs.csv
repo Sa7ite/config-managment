@@ -1,0 +1,8 @@
+Path,Name,Type,Content,Size
+/home,home,Directory,,
+/home/user,user,Directory,,
+/home/user/documents,documents,Directory,,
+/home/user/documents/reports,reports,Directory,,
+/home/user/documents/reports/q1.pdf,q1.pdf,File,"cGRmIGNvbnRlbnQgZm9yIFFS",18
+/home/user/downloads,downloads,Directory,,
+/home/user/readme.txt,readme.txt,File,"V2VsY29tZSB0byBuZXN0ZWQgVkZT",24

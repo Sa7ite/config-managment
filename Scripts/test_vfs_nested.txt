@@ -1,0 +1,13 @@
+# Тестирование вложенной VFS
+echo "=== Тест вложенной структуры ==="
+pwd
+ls
+cd /home/user/documents
+ls
+cd reports
+ls
+cat q1.pdf
+cd ../..
+ls downloads
+cd /
+exit

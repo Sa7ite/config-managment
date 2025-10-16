@@ -10,6 +10,7 @@ namespace ConfigManagement
         public static string CustomPrompt { get; private set; } = "$ ";
         public static string? ScriptPath { get; private set; }
         public static bool ShowDebugInfo { get; private set; } = true;
+        public static VirtualFileSystem? VFS { get; private set; }
 
         [STAThread]
         static void Main(string[] args)
@@ -17,10 +18,9 @@ namespace ConfigManagement
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // Парсинг аргументов командной строки
             ParseCommandLineArgs(args);
+            VFS = VFSParser.LoadFromFile(VfsPath);
 
-            // Отладочный вывод параметров
             if (ShowDebugInfo)
             {
                 ShowDebugParameters();

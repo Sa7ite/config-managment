@@ -1,0 +1,8 @@
+ls
+ls /home
+ls /home/user
+cat /home/user/readme.txt
+cd /home/user
+ls
+cd /
+exit
