@@ -12,3 +12,4 @@ C:\Users\thunder\config-management\ConfigManagement\obj\Debug\net8.0-windows\ref
 C:\Users\thunder\config-management\ConfigManagement\obj\Debug\net8.0-windows\ConfigManagement.pdb
 C:\Users\thunder\config-management\ConfigManagement\obj\Debug\net8.0-windows\ConfigManagement.genruntimeconfig.cache
 C:\Users\thunder\config-management\ConfigManagement\obj\Debug\net8.0-windows\ref\ConfigManagement.dll
+C:\Users\thunder\config-management\ConfigManagement\obj\Debug\net8.0-windows\ConfigManagement.sourcelink.json

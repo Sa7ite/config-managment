@@ -1,0 +1,6 @@
+ls
+ls -l -a
+cd /home/user/scripts
+cd ..
+cd /
+exit

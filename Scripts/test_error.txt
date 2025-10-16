@@ -1,0 +1,4 @@
+ls
+invalid_command_that_should_fail
+ls -l  # Эта команда не выполнится из-за ошибки выше
+exit
